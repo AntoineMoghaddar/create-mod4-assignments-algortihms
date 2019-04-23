@@ -1,4 +1,4 @@
 package Java.Objects;
 
-public class Word {
+public class W1A {
 }
