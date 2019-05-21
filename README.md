@@ -1,4 +1,6 @@
-# PIELEMUIS
+## Authors
+Antoine Moghaddar
+Sven Bormans
 
 
 ## Git Commands
