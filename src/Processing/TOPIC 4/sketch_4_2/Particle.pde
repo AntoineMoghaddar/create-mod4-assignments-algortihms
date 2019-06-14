@@ -3,16 +3,16 @@ class Particle {
   PVector locOriginal;
   PVector loc;
   PVector velocity;
-  PVector acceleration;
   float lifeParticle;
+  int choose2DObject;
 
   Particle(PVector startLocation) {
     //define var
-    acceleration = new PVector(0, 0.1);
-    velocity = new PVector(random(-0.75, 0.75), random(0, 0));
+    velocity = new PVector(random(-3, 3), random(-3, 3));
     loc = startLocation.copy();
     locOriginal = startLocation.copy();
     lifeParticle = 255.0;
+    choose2DObject = int(random(3));
   }
 
   //combine 2 voids to 1 void
@@ -23,17 +23,23 @@ class Particle {
 
   //update of the particle location and color
   void update() {
-    velocity.add(acceleration);
     loc.add(velocity);
-    lifeParticle -= 3;
+    lifeParticle -= 2;
     float colorChangeMapped = map(-dist(loc.x, loc.y, locOriginal.x, locOriginal.y), -144, 0, 0, 255);
-    fill(255, colorChangeMapped*2, 0, lifeParticle);
+    float colorChangeMappedFlipped = map(dist(loc.x, loc.y, locOriginal.x, locOriginal.y), -144, 0, 0, 255);
+    fill(255, colorChangeMapped, colorChangeMappedFlipped, lifeParticle);
   }
 
-  //define the 
   void display() {
-    noStroke();
-    ellipse(loc.x, loc.y, 15, 15);
+    stroke(0, lifeParticle*2); // disappearing stroke
+    //define the 2D-Object
+    if (choose2DObject == 0) {
+      ellipse(loc.x, loc.y, 15, 15);
+    } else if (choose2DObject ==1) {
+      rect(loc.x, loc.y, 15, 15);
+    } else if (choose2DObject ==2) {
+      triangle(loc.x, loc.y+13, loc.x+7, loc.y, loc.x+11, loc.y+13);
+    }
   }
 
   //boolean for particle to die

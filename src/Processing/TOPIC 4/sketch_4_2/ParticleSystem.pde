@@ -4,20 +4,21 @@ class ParticleSystem {
   PVector origin;
 
   //constructor + define var
-  ParticleSystem(PVector location) {
+  ParticleSystem() {
     particles = new ArrayList<Particle>();
-    origin = location.copy();
   }
-
-  //direction of the particleSystem
-  void move() {
-    origin.add(0, -0.3);
-  }
-
+  
   //make multiples particles
-  void addParticle() {
-    move();
-    particles.add(new Particle(origin));
+  void addParticle() {  
+    //if explosion is true make 200 new particles on place of mouse
+    if (explosion) {
+      origin = new PVector(mouseX, mouseY);
+      for (int i = 0; i<200; i++) {
+        particles.add(new Particle(origin));
+      }
+    }
+    //return false
+    explosion= false;
   }
 
   //make the particles and delete the older particles
